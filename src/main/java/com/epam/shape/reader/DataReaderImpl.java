@@ -23,7 +23,8 @@ public class DataReaderImpl implements DataReader {
             Scanner scanner = new Scanner(fileReader);
 
             while (scanner.hasNextLine()) {
-                data.add(scanner.nextLine());
+                String line = scanner.nextLine();
+                data.add(line);
             }
 
         } catch (IOException e) {
