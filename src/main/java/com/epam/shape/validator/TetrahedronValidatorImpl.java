@@ -1,9 +1,10 @@
 package com.epam.shape.validator;
 
 import com.epam.shape.entity.Point;
+import com.epam.shape.entity.Tetrahedron;
 
 public class TetrahedronValidatorImpl implements TetrahedronValidator {
-    private static final String TETRAHEDRON_REGEX = "^\\s*(-?\\d+(\\.\\d+)?\\s+){11}-?\\d+(\\.\\d+)?\\s*$";
+    private static final String TETRAHEDRON_DATA_REGEX = "^\\s*(-?\\d+(\\.\\d+)?\\s+){11}-?\\d+(\\.\\d+)?\\s*$";
 
     @Override
     public boolean isTetrahedronPossible(Point pointA, Point pointB, Point pointC, Point pointD) {
@@ -17,8 +18,18 @@ public class TetrahedronValidatorImpl implements TetrahedronValidator {
     }
 
     @Override
+    public boolean isTetrahedronPossible(Tetrahedron tetrahedron) {
+        Point pointA = tetrahedron.getPointA();
+        Point pointB = tetrahedron.getPointB();
+        Point pointC = tetrahedron.getPointC();
+        Point pointD = tetrahedron.getPointD();
+
+        return isTetrahedronPossible(pointA, pointB, pointC, pointD);
+    }
+
+    @Override
     public boolean isTetrahedronData(String data) {
-        return data.matches(TETRAHEDRON_REGEX);
+        return data.matches(TETRAHEDRON_DATA_REGEX);
     }
 
     private Point calculateCoordinates(Point pointA, Point pointB) {
@@ -29,7 +40,7 @@ public class TetrahedronValidatorImpl implements TetrahedronValidator {
         return new Point(x, y, z);
     }
 
-    public double calculateVectorBasis(Point vectorA, Point vectorB, Point vectorC) {
+    private double calculateVectorBasis(Point vectorA, Point vectorB, Point vectorC) {
         return vectorA.getX() * vectorB.getY() * vectorC.getZ() +
                 vectorA.getY() * vectorB.getZ() * vectorC.getX() +
                 vectorA.getZ() * vectorB.getX() * vectorC.getY() -

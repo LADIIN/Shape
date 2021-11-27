@@ -2,13 +2,14 @@ package com.epam.shape;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
+import com.epam.shape.exception.TetrahedronException;
 import com.epam.shape.service.TetrahedronServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TetrahedronServiceImplTest {
     @Test
-    public void testAddShouldCalculateAreaWhenCorrectPoints() {
+    public void testAddShouldCalculateAreaWhenCorrectPoints() throws TetrahedronException {
         //given
         Point pointA = new Point(-2, -1, 1);
         Point pointB = new Point(5, 5, 4);
@@ -26,7 +27,7 @@ public class TetrahedronServiceImplTest {
     }
 
     @Test
-    public void testAddShouldCalculateVolumeWhenCorrectPoints() {
+    public void testAddShouldCalculateVolumeWhenCorrectPoints() throws TetrahedronException {
         //given
         Point pointA = new Point(14, 4, 5);
         Point pointB = new Point(-5, -3, 2);
@@ -44,7 +45,7 @@ public class TetrahedronServiceImplTest {
     }
 
     @Test
-    public void testAddShouldCalculateRationWhenCorrectIntersectionPoints() {
+    public void testAddShouldCalculateRationWhenCorrectIntersectionPoints() throws TetrahedronException {
         //given
         Point pointA = new Point(0, 0, 0);
         Point pointB = new Point(1, 0, 0);

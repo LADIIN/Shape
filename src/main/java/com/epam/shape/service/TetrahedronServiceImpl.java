@@ -3,15 +3,15 @@ package com.epam.shape.service;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
+import com.epam.shape.exception.TetrahedronException;
 
 public class TetrahedronServiceImpl implements TetrahedronService {
 
     @Override
-    public double calculateArea(Tetrahedron tetrahedron) {
-
-//        if(tetrahedron == null){
-//            throw new TetrahedronException("Object must be no-null.");
-//        }
+    public double calculateArea(Tetrahedron tetrahedron) throws TetrahedronException {
+        if (tetrahedron == null) {
+            throw new TetrahedronException("Object Tetrahedron is null.");
+        }
 
         Point vectorAB = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
         Point vectorAC = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
@@ -28,7 +28,11 @@ public class TetrahedronServiceImpl implements TetrahedronService {
     }
 
     @Override
-    public double calculateVolume(Tetrahedron tetrahedron) {
+    public double calculateVolume(Tetrahedron tetrahedron) throws TetrahedronException {
+        if (tetrahedron == null) {
+            throw new TetrahedronException("Object Tetrahedron is null.");
+        }
+
         Point vectorAB = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
         Point vectorAC = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
         Point vectorAD = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointD());
@@ -41,7 +45,11 @@ public class TetrahedronServiceImpl implements TetrahedronService {
     //TODO: Add enum "Axis" to vary axis in function parameters
 
     public double calculateVolumeRation(Tetrahedron tetrahedron, Point intersectionA,
-                                        Point intersectionB, Point intersectionC) {
+                                        Point intersectionB, Point intersectionC) throws TetrahedronException {
+        if (tetrahedron == null) {
+            throw new TetrahedronException("Object Tetrahedron is null.");
+        }
+
         Tetrahedron smallTetrahedron = new Tetrahedron(intersectionA,
                 intersectionB, intersectionC, tetrahedron.getPointD());
 

@@ -2,29 +2,35 @@ package com.epam.shape.reader;
 
 import com.epam.shape.exception.TetrahedronException;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Scanner;
+
 
 public class DataReaderImpl implements DataReader {
+
     @Override
     public List<String> read(String path) throws TetrahedronException {
         if (path == null || path.isEmpty()) {
             throw new TetrahedronException("File path is empty or null.");
         }
-        List<String> data;
-        Path filePath = Paths.get(path);
+        List<String> data = new ArrayList<>();
 
-        try (Stream<String> dataStream = Files.lines(filePath)) {
-            data = dataStream.collect(Collectors.toList());
-        } catch (IOException exception) {
-            throw new TetrahedronException(String.format("There is no file: %s", path), exception);
+        try {
+            FileReader fileReader = new FileReader("src/main/java/resources/data.txt");
+            Scanner scanner = new Scanner(fileReader);
+
+            while (scanner.hasNextLine()) {
+                data.add(scanner.nextLine());
+            }
+
+        } catch (IOException e) {
+            throw new TetrahedronException(String.format("There is no file: %s", path), e);
         }
 
         return data;
     }
+
 }
