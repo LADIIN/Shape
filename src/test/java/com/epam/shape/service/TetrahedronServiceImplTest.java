@@ -1,9 +1,9 @@
-package com.epam.shape;
+package com.epam.shape.service;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
 import com.epam.shape.exception.TetrahedronException;
-import com.epam.shape.service.TetrahedronServiceImpl;
+import com.epam.shape.service.impl.TetrahedronServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 

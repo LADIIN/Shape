@@ -1,7 +1,7 @@
-package com.epam.shape;
+package com.epam.shape.parser;
 
 import com.epam.shape.exception.TetrahedronException;
-import com.epam.shape.parser.TetrahedronDataParser;
+import com.epam.shape.parser.impl.TetrahedronDataParserImpl;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,7 +14,7 @@ public class TetrahedronDataParserTest {
     @Test
     public void testAddShouldParseStringToDoublesListWhenStringListIsCorrect() throws TetrahedronException {
         //given
-        TetrahedronDataParser tetrahedronDataParser = new TetrahedronDataParser();
+        TetrahedronDataParserImpl tetrahedronDataParser = new TetrahedronDataParserImpl();
 
         List<String> data = Arrays.asList(
                 "2.5 3 2.5 61.0   1 3 4 6 1.0 -4 1.0 -2.4",
@@ -23,7 +23,7 @@ public class TetrahedronDataParserTest {
                 "1 0 0 0 0 0 0 0 0 0 0 0");
 
         //when
-        List<double[]> actual = tetrahedronDataParser.parseStringDataToListOfDoubleArrays(data);
+        List<double[]> actual = tetrahedronDataParser.parseStringToDouble(data);
 
         //then
         List<double[]> expected = Arrays.asList(

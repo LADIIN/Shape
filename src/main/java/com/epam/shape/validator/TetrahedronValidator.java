@@ -2,11 +2,10 @@ package com.epam.shape.validator;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
+import com.epam.shape.exception.TetrahedronException;
 
 public interface TetrahedronValidator {
-    boolean isTetrahedronPossible(Point pointA, Point pointB, Point pointC, Point pointD);
+    boolean isPossible(Point pointA, Point pointB, Point pointC, Point pointD) throws TetrahedronException;
 
-    boolean isTetrahedronPossible(Tetrahedron tetrahedron);
-
-    boolean isTetrahedronData(String data);
+    boolean isPossible(Tetrahedron tetrahedron) throws TetrahedronException;
 }

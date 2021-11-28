@@ -1,15 +1,23 @@
-package com.epam.shape.creator;
+package com.epam.shape.creator.impl;
 
+import com.epam.shape.creator.TetrahedronCreator;
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
 import com.epam.shape.exception.TetrahedronException;
+import com.epam.shape.reader.impl.DataReaderImpl;
+import com.epam.shape.validator.impl.TetrahedronValidatorImpl;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class TetrahedronCreatorImpl implements TetrahedronCreator {
-    private final int VALID_AMOUNT_OF_COORDINATES = 12;
+    private static final int VALID_AMOUNT_OF_COORDINATES = 12;
+    private final TetrahedronValidatorImpl tetrahedronValidator = new TetrahedronValidatorImpl();
+    private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
 
     @Override
     public List<Tetrahedron> createTetrahedronList(List<double[]> coordinatesList) throws TetrahedronException {
@@ -21,8 +29,13 @@ public class TetrahedronCreatorImpl implements TetrahedronCreator {
 
         for (double[] coordinates : coordinatesList) {
             Tetrahedron tetrahedron = createTetrahedron(coordinates);
-            tetrahedrons.add(tetrahedron);
+
+            if (tetrahedronValidator.isPossible(tetrahedron)) {
+                tetrahedrons.add(tetrahedron);
+            }
         }
+
+        LOGGER.log(Level.INFO, "Creating list of Tetrahedron is successful.");
 
         return tetrahedrons;
     }
@@ -32,6 +45,9 @@ public class TetrahedronCreatorImpl implements TetrahedronCreator {
         if (coordinates == null || coordinates.length != VALID_AMOUNT_OF_COORDINATES) {
             throw new TetrahedronException("Array is null or there is wrong amount of coordinates");
         }
+
+        LOGGER.log(Level.INFO, "Creating Tetrahedron is successful");
+
 
         return new Tetrahedron(new Point(coordinates[0], coordinates[1], coordinates[2]),
                 new Point(coordinates[3], coordinates[4], coordinates[5]),

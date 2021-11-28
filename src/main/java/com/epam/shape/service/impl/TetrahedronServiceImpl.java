@@ -1,11 +1,19 @@
-package com.epam.shape.service;
+package com.epam.shape.service.impl;
 
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
 import com.epam.shape.exception.TetrahedronException;
+import com.epam.shape.reader.impl.DataReaderImpl;
+import com.epam.shape.service.TetrahedronService;
+import com.epam.shape.service.VectorCalculator;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class TetrahedronServiceImpl implements TetrahedronService {
+    private static final VectorCalculator vectorCalculator = new VectorCalculator();
+    private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
 
     @Override
     public double calculateArea(Tetrahedron tetrahedron) throws TetrahedronException {
@@ -13,18 +21,22 @@ public class TetrahedronServiceImpl implements TetrahedronService {
             throw new TetrahedronException("Object Tetrahedron is null.");
         }
 
-        Point vectorAB = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
-        Point vectorAC = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
-        Point vectorAD = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointD());
-        Point vectorBC = calculateCoordinates(tetrahedron.getPointB(), tetrahedron.getPointC());
-        Point vectorBD = calculateCoordinates(tetrahedron.getPointB(), tetrahedron.getPointD());
+        Point vectorAB = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
+        Point vectorAC = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
+        Point vectorAD = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointD());
+        Point vectorBC = vectorCalculator.calculateCoordinates(tetrahedron.getPointB(), tetrahedron.getPointC());
+        Point vectorBD = vectorCalculator.calculateCoordinates(tetrahedron.getPointB(), tetrahedron.getPointD());
 
         double sideABC = calculateSideArea(vectorAB, vectorAC);
         double sideABD = calculateSideArea(vectorAB, vectorAD);
         double sideACD = calculateSideArea(vectorAC, vectorAD);
         double sideBCD = calculateSideArea(vectorBC, vectorBD);
 
-        return sideABC + sideABD + sideACD + sideBCD;
+        double area = sideABC + sideABD + sideACD + sideBCD;
+
+        LOGGER.log(Level.INFO, String.format("Calculated Tetrahedron area: %f", area));
+
+        return area;
     }
 
     @Override
@@ -33,13 +45,17 @@ public class TetrahedronServiceImpl implements TetrahedronService {
             throw new TetrahedronException("Object Tetrahedron is null.");
         }
 
-        Point vectorAB = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
-        Point vectorAC = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
-        Point vectorAD = calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointD());
+        Point vectorAB = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointB());
+        Point vectorAC = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointC());
+        Point vectorAD = vectorCalculator.calculateCoordinates(tetrahedron.getPointA(), tetrahedron.getPointD());
 
-        double determinant = calculateDeterminantForVectors(vectorAB, vectorAC, vectorAD);
+        double determinant = calculateDeterminant(vectorAB, vectorAC, vectorAD);
 
-        return determinant / 6;
+        double volume = determinant / 6;
+
+        LOGGER.log(Level.INFO, String.format("Calculated Tetrahedron volume: %f", volume));
+
+        return volume;
     }
 
     //TODO: Add enum "Axis" to vary axis in function parameters
@@ -59,14 +75,21 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         return firstPartVolume / secondPartVolume;
     }
 
-    private double calculateDeterminantForVectors(Point vectorA, Point vectorB, Point vectorC) {
+    private double calculateDeterminant(Point vectorA, Point vectorB, Point vectorC) throws TetrahedronException {
+        if (vectorA == null || vectorB == null || vectorC == null) {
+            throw new TetrahedronException("Point is null");
+        }
 
         return vectorA.getX() * (vectorB.getY() * vectorC.getZ() - vectorC.getY() * vectorB.getZ())
                 - vectorB.getX() * (vectorA.getY() * vectorC.getZ() - vectorC.getY() * vectorA.getZ())
                 + vectorC.getX() * (vectorA.getY() * vectorB.getZ() - vectorB.getY() * vectorA.getZ());
     }
 
-    private double calculateSideArea(Point vectorA, Point vectorB) {
+    private double calculateSideArea(Point vectorA, Point vectorB) throws TetrahedronException {
+        if (vectorA == null || vectorB == null) {
+            throw new TetrahedronException("Point is null");
+        }
+
         double sideA = Math.sqrt(Math.pow(vectorA.getX(), 2) + Math.pow(vectorA.getY(), 2)
                 + Math.pow(vectorA.getZ(), 2));
 
@@ -81,11 +104,4 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         return sideA * sideB * sinus / 2;
     }
 
-    private Point calculateCoordinates(Point pointA, Point pointB) {
-        double x = pointA.getX() - pointB.getX();
-        double y = pointA.getY() - pointB.getY();
-        double z = pointA.getZ() - pointB.getZ();
-
-        return new Point(x, y, z);
-    }
 }
