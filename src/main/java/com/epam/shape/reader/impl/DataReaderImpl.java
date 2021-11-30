@@ -34,7 +34,6 @@ public class DataReaderImpl implements DataReader {
 
             LOGGER.log(Level.INFO, String.format("File %s read successfully.", path));
 
-
         } catch (IOException e) {
             LOGGER.log(Level.ERROR, String.format("There is no file: %s", path), e);
 

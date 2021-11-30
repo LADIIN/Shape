@@ -3,7 +3,7 @@ package com.epam.shape.entity;
 import java.util.Objects;
 
 public class Point {
-    private static final double delta = 0.0001;
+    private static final double DELTA = 0.0001;
 
     private final double x;
     private final double y;
@@ -39,9 +39,9 @@ public class Point {
 
         Point point = (Point) object;
 
-        return Math.abs(point.getX() - x) < delta
-                && Math.abs(point.getY() - y) < delta
-                && Math.abs(point.getZ() - z) < delta;
+        return Math.abs(point.getX() - x) < DELTA
+                && Math.abs(point.getY() - y) < DELTA
+                && Math.abs(point.getZ() - z) < DELTA;
     }
 
     @Override

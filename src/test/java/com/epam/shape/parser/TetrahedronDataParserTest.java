@@ -34,4 +34,14 @@ public class TetrahedronDataParserTest {
 
     }
 
+    @Test(expected = TetrahedronException.class)
+    public void testAddShouldThrowExceptionWhenStringListIsNull() throws TetrahedronException {
+        //given
+        TetrahedronDataParserImpl tetrahedronDataParser = new TetrahedronDataParserImpl();
+        List<String> data = null;
+
+        //when
+        List<double[]> actual = tetrahedronDataParser.parseStringToDouble(data);
+    }
+
 }

@@ -16,8 +16,9 @@ import java.util.List;
 
 public class TetrahedronCreatorImpl implements TetrahedronCreator {
     private static final int VALID_AMOUNT_OF_COORDINATES = 12;
-    private final TetrahedronValidatorImpl tetrahedronValidator = new TetrahedronValidatorImpl();
     private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
+
+    private static final TetrahedronValidatorImpl tetrahedronValidator = new TetrahedronValidatorImpl();
 
     @Override
     public List<Tetrahedron> createTetrahedronList(List<double[]> coordinatesList) throws TetrahedronException {
@@ -47,7 +48,6 @@ public class TetrahedronCreatorImpl implements TetrahedronCreator {
         }
 
         LOGGER.log(Level.INFO, "Creating Tetrahedron is successful");
-
 
         return new Tetrahedron(new Point(coordinates[0], coordinates[1], coordinates[2]),
                 new Point(coordinates[3], coordinates[4], coordinates[5]),

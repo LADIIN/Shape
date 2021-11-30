@@ -14,8 +14,9 @@ import java.util.List;
 
 public class TetrahedronDataParserImpl implements TetrahedronDataParser {
     private static final String SPACE_DELIMITER_REGEX = "\\s+";
-    private final DataStringValidator dataStringValidator = new DataStringValidator();
     private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
+
+    private final DataStringValidator dataStringValidator = new DataStringValidator();
 
     public List<double[]> parseStringToDouble(List<String> data) throws TetrahedronException {
         if (data == null || data.isEmpty()) {
@@ -37,11 +38,10 @@ public class TetrahedronDataParserImpl implements TetrahedronDataParser {
                 }
 
                 coordinatesList.add(array);
-
             }
         }
 
-        LOGGER.log(Level.INFO, "Parsing is successful");
+        LOGGER.log(Level.INFO, "Parsing is successful.");
 
         return coordinatesList;
 

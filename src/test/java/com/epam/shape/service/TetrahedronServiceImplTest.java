@@ -66,4 +66,24 @@ public class TetrahedronServiceImplTest {
         Assert.assertEquals(0.142, ratio, 0.001);
 
     }
+
+    @Test(expected = TetrahedronException.class)
+    public void testAreaAddShouldThrowExceptionWhenTetrahedronIsNull() throws TetrahedronException {
+        //given
+        Tetrahedron tetrahedron = null;
+        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+
+        //when
+        double area = tetrahedronService.calculateArea(tetrahedron);
+    }
+
+    @Test(expected = TetrahedronException.class)
+    public void testVolumeAddShouldThrowExceptionWhenTetrahedronIsNull() throws TetrahedronException {
+        //given
+        Tetrahedron tetrahedron = null;
+        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+
+        //when
+        double area = tetrahedronService.calculateVolume(tetrahedron);
+    }
 }
