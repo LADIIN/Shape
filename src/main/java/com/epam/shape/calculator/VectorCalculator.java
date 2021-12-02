@@ -1,4 +1,4 @@
-package com.epam.shape.service;
+package com.epam.shape.calculator;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.exception.TetrahedronException;

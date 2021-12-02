@@ -29,7 +29,7 @@ public class DataReaderImplTest {
     @Test(expected = TetrahedronException.class)
     public void testAddShouldThrowExceptionWhenFileDoesNotExist() throws TetrahedronException {
         //given
-        String path = "src/main/java/resources/file.txt";
+        String path = "src/main/java/resources/NonExistentFile.txt";
         DataReaderImpl dataReader = new DataReaderImpl();
 
         //when

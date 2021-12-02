@@ -1,13 +1,12 @@
-package com.epam.shape.service;
+package com.epam.shape.calculator;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
 import com.epam.shape.exception.TetrahedronException;
-import com.epam.shape.service.impl.TetrahedronServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TetrahedronServiceImplTest {
+public class TetrahedronCalculatorTest {
     @Test
     public void testAddShouldCalculateAreaWhenCorrectPoints() throws TetrahedronException {
         //given
@@ -17,10 +16,10 @@ public class TetrahedronServiceImplTest {
         Point pointD = new Point(4, 1, 5);
 
         Tetrahedron tetrahedron = new Tetrahedron(pointA, pointB, pointC, pointD);
-        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+        TetrahedronCalculator tetrahedronCalculator = new TetrahedronCalculator();
 
         //when
-        double area = tetrahedronService.calculateArea(tetrahedron);
+        double area = tetrahedronCalculator.calculateArea(tetrahedron);
 
         //then
         Assert.assertEquals(64.134, area, 0.001);
@@ -35,10 +34,10 @@ public class TetrahedronServiceImplTest {
         Point pointD = new Point(-2, 2, -1);
 
         Tetrahedron tetrahedron = new Tetrahedron(pointA, pointB, pointC, pointD);
-        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+        TetrahedronCalculator tetrahedronCalculator = new TetrahedronCalculator();
 
         //when
-        double volume = tetrahedronService.calculateVolume(tetrahedron);
+        double volume = tetrahedronCalculator.calculateVolume(tetrahedron);
 
         //then
         Assert.assertEquals(112.67, volume, 0.01);
@@ -57,10 +56,10 @@ public class TetrahedronServiceImplTest {
         Point intersectionC = new Point(0, 0, 0.5);
 
         Tetrahedron tetrahedron = new Tetrahedron(pointA, pointB, pointC, pointD);
-        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+        TetrahedronCalculator tetrahedronCalculator = new TetrahedronCalculator();
 
         //when
-        double ratio = tetrahedronService.calculateVolumeRation(tetrahedron, intersectionA, intersectionB, intersectionC);
+        double ratio = tetrahedronCalculator.calculateVolumeRation(tetrahedron, intersectionA, intersectionB, intersectionC);
 
         //then
         Assert.assertEquals(0.142, ratio, 0.001);
@@ -71,19 +70,19 @@ public class TetrahedronServiceImplTest {
     public void testAreaAddShouldThrowExceptionWhenTetrahedronIsNull() throws TetrahedronException {
         //given
         Tetrahedron tetrahedron = null;
-        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+        TetrahedronCalculator tetrahedronCalculator = new TetrahedronCalculator();
 
         //when
-        double area = tetrahedronService.calculateArea(tetrahedron);
+        double area = tetrahedronCalculator.calculateArea(tetrahedron);
     }
 
     @Test(expected = TetrahedronException.class)
     public void testVolumeAddShouldThrowExceptionWhenTetrahedronIsNull() throws TetrahedronException {
         //given
         Tetrahedron tetrahedron = null;
-        TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
+        TetrahedronCalculator tetrahedronCalculator = new TetrahedronCalculator();
 
         //when
-        double area = tetrahedronService.calculateVolume(tetrahedron);
+        double area = tetrahedronCalculator.calculateVolume(tetrahedron);
     }
 }

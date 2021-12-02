@@ -1,21 +1,18 @@
-package com.epam.shape.service.impl;
+package com.epam.shape.calculator;
 
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.entity.Tetrahedron;
 import com.epam.shape.exception.TetrahedronException;
 import com.epam.shape.reader.impl.DataReaderImpl;
-import com.epam.shape.service.TetrahedronService;
-import com.epam.shape.service.VectorCalculator;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class TetrahedronServiceImpl implements TetrahedronService {
+public class TetrahedronCalculator {
     private static final VectorCalculator vectorCalculator = new VectorCalculator();
     private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
 
-    @Override
     public double calculateArea(Tetrahedron tetrahedron) throws TetrahedronException {
         if (tetrahedron == null) {
             throw new TetrahedronException("Object Tetrahedron is null.");
@@ -39,7 +36,6 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         return area;
     }
 
-    @Override
     public double calculateVolume(Tetrahedron tetrahedron) throws TetrahedronException {
         if (tetrahedron == null) {
             throw new TetrahedronException("Object Tetrahedron is null.");
@@ -58,10 +54,9 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         return volume;
     }
 
-    //TODO: Add enum "Axis" to vary axis in function parameters
-
+    //Assuming that intersection points of axis we already know.
     public double calculateVolumeRation(Tetrahedron tetrahedron, Point intersectionA,
-                                        Point intersectionB, Point intersectionC) throws TetrahedronException {
+                                    Point intersectionB, Point intersectionC) throws TetrahedronException {
         if (tetrahedron == null) {
             throw new TetrahedronException("Object Tetrahedron is null.");
         }
@@ -72,8 +67,9 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         double firstPartVolume = calculateVolume(smallTetrahedron);
         double secondPartVolume = calculateVolume(tetrahedron) - firstPartVolume;
 
-        return firstPartVolume / secondPartVolume;
+    return firstPartVolume / secondPartVolume;
     }
+
 
     private double calculateDeterminant(Point vectorA, Point vectorB, Point vectorC) throws TetrahedronException {
         if (vectorA == null || vectorB == null || vectorC == null) {
