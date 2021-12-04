@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public class TetrahedronCreatorTest {
 
+    //TODO: check hot avoid get() problems.
+
     @Test
     public void testCreateTetrahedronShouldCreateTetrahedronWhenDataIsCorrect() throws TetrahedronException {
         //given
@@ -49,7 +51,6 @@ public class TetrahedronCreatorTest {
 
         //when
         Optional<Tetrahedron> actual = tetrahedronCreator.createTetrahedron(coordinates);
-
     }
 
     //then

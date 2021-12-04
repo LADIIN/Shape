@@ -1,5 +1,7 @@
 package com.epam.shape.entity;
 
+import com.epam.shape.exception.TetrahedronException;
+
 import java.util.Objects;
 
 public class Tetrahedron {
@@ -31,19 +33,19 @@ public class Tetrahedron {
         return pointD;
     }
 
-    public void setPointA(Point pointA) {
+    public void setPointA(Point pointA) throws TetrahedronException {
         this.pointA = pointA;
     }
 
-    public void setPointB(Point pointB) {
+    public void setPointB(Point pointB) throws TetrahedronException {
         this.pointB = pointB;
     }
 
-    public void setPointC(Point pointC) {
+    public void setPointC(Point pointC) throws TetrahedronException {
         this.pointC = pointC;
     }
 
-    public void setPointD(Point pointD) {
+    public void setPointD(Point pointD) throws TetrahedronException {
         this.pointD = pointD;
     }
 
