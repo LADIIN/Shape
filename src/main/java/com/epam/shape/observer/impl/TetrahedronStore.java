@@ -1,7 +1,8 @@
-package com.epam.shape.observer;
+package com.epam.shape.observer.impl;
 
 import com.epam.shape.calculator.TetrahedronCalculator;
 import com.epam.shape.exception.TetrahedronException;
+import com.epam.shape.observer.Observer;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -45,6 +46,10 @@ public class TetrahedronStore implements Observer {
     //Have been added for TetrahedronStoreTest
     public void setTetrahedronCalculator(TetrahedronCalculator tetrahedronCalculator) {
         this.tetrahedronCalculator = tetrahedronCalculator;
+    }
+
+    public TetrahedronParameters getTetrahedronParameters(Integer id) {
+        return parameters.get(id);
     }
 
 }

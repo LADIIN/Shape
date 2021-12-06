@@ -4,7 +4,7 @@ import com.epam.shape.entity.Point;
 import com.epam.shape.exception.TetrahedronException;
 
 public class VectorCalculator {
-    public  Point calculateCoordinates(Point pointA, Point pointB) throws TetrahedronException {
+        public  Point calculateCoordinates(Point pointA, Point pointB) throws TetrahedronException {
         if (pointA == null || pointB == null) {
             throw new TetrahedronException("Point is null");
         }

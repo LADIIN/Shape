@@ -9,6 +9,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 public class TetrahedronCalculator {
     private static final VectorCalculator vectorCalculator = new VectorCalculator();
     private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
@@ -47,7 +49,7 @@ public class TetrahedronCalculator {
 
         double determinant = calculateDeterminant(vectorAB, vectorAC, vectorAD);
 
-        double volume = determinant / 6;
+        double volume = Math.abs(determinant / 6);
 
         LOGGER.log(Level.INFO, String.format("Calculated Tetrahedron volume: %f", volume));
 
@@ -56,7 +58,7 @@ public class TetrahedronCalculator {
 
     //Assuming that intersection points of axis we already know.
     public double calculateVolumeRation(Tetrahedron tetrahedron, Point intersectionA,
-                                    Point intersectionB, Point intersectionC) throws TetrahedronException {
+                                        Point intersectionB, Point intersectionC) throws TetrahedronException {
         if (tetrahedron == null) {
             throw new TetrahedronException("Object Tetrahedron is null.");
         }
@@ -67,7 +69,7 @@ public class TetrahedronCalculator {
         double firstPartVolume = calculateVolume(smallTetrahedron);
         double secondPartVolume = calculateVolume(tetrahedron) - firstPartVolume;
 
-    return firstPartVolume / secondPartVolume;
+        return firstPartVolume / secondPartVolume;
     }
 
 

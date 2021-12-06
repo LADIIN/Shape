@@ -2,6 +2,9 @@ package com.epam.shape.observer;
 
 import com.epam.shape.calculator.TetrahedronCalculator;
 import com.epam.shape.exception.TetrahedronException;
+import com.epam.shape.observer.impl.TetrahedronIdentifiable;
+import com.epam.shape.observer.impl.TetrahedronParameters;
+import com.epam.shape.observer.impl.TetrahedronStore;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
