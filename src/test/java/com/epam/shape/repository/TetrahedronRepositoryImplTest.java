@@ -143,7 +143,6 @@ public class TetrahedronRepositoryImplTest {
         repository.addTetrahedron(FIFTH);
         repository.addTetrahedron(SIXTH);
 
-
         //when
         List<TetrahedronIdentifiable> actual = repository.sort(TetrahedronComparator.ID.getComparator());
 
