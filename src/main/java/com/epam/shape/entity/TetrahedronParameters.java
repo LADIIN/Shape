@@ -1,4 +1,4 @@
-package com.epam.shape.observer.impl;
+package com.epam.shape.entity;
 
 public class TetrahedronParameters {
     private final double surfaceArea;

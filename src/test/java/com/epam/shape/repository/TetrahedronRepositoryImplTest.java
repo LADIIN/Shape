@@ -2,6 +2,7 @@ package com.epam.shape.repository;
 
 import com.epam.shape.entity.Point;
 import com.epam.shape.exception.TetrahedronException;
+import com.epam.shape.util.IdGenerator;
 import com.epam.shape.observer.impl.TetrahedronIdentifiable;
 import com.epam.shape.observer.impl.TetrahedronStore;
 import com.epam.shape.repository.impl.*;
@@ -15,28 +16,28 @@ public class TetrahedronRepositoryImplTest {
     private static final Integer Id = 3;
 
     private final static TetrahedronIdentifiable FIRST = new TetrahedronIdentifiable(
-            1,
+            IdGenerator.generateId(),
             new Point(0.577, 0, 1.634),
             new Point(0, -1, 0),
             new Point(1.732, 0, 0),
             new Point(0, 1, 0));
 
     private final static TetrahedronIdentifiable SECOND = new TetrahedronIdentifiable(
-            2,
+            IdGenerator.generateId(),
             new Point(-2, 1, 2),
             new Point(-2, 9, 2),
             new Point(-2, 5, 8.928),
             new Point(4.532, 5, 4.31));
 
     private final static TetrahedronIdentifiable THIRD = new TetrahedronIdentifiable(
-            3,
+            IdGenerator.generateId(),
             new Point(1, 2, -2),
             new Point(9, 2, -2),
             new Point(5, 8.93, -2),
             new Point(5, 4.31, 4.532));
 
     private final static TetrahedronIdentifiable FOURTH = new TetrahedronIdentifiable(
-            4,
+            IdGenerator.generateId(),
             new Point(2.82, 1.66, 0),
             new Point(-2.15, 0.41, 0),
             new Point(0.7, -0.4, 4.19),
@@ -44,7 +45,7 @@ public class TetrahedronRepositoryImplTest {
     );
 
     private final static TetrahedronIdentifiable FIFTH = new TetrahedronIdentifiable(
-            5,
+            IdGenerator.generateId(),
             new Point(-2.83, 0.96, 0),
             new Point(1.42, -3.27, 0),
             new Point(1.3, 1.57, 0),
@@ -52,7 +53,7 @@ public class TetrahedronRepositoryImplTest {
     );
 
     private final static TetrahedronIdentifiable SIXTH = new TetrahedronIdentifiable(
-            6,
+            IdGenerator.generateId(),
             new Point(0.36, 1.25, 0),
             new Point(2.18, 0.83, 0),
             new Point(1.64, 2.62, 0),
@@ -175,6 +176,36 @@ public class TetrahedronRepositoryImplTest {
 
         //when
         List<TetrahedronIdentifiable> actual = repository.sort(TetrahedronComparator.AREA.getComparator());
+
+        //then
+        List<TetrahedronIdentifiable> expected = Arrays.asList(SIXTH, FIRST, FIFTH, FOURTH, SECOND, THIRD);
+
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testSortByVolumeShouldSortWhenIsValid() throws TetrahedronException {
+        //given
+        TetrahedronRepositoryImpl repository = new TetrahedronRepositoryImpl();
+        repository.addTetrahedron(FIRST);
+        repository.addTetrahedron(SECOND);
+        repository.addTetrahedron(THIRD);
+        repository.addTetrahedron(FOURTH);
+        repository.addTetrahedron(FIFTH);
+        repository.addTetrahedron(SIXTH);
+
+        TetrahedronStore store = TetrahedronStore.getInstance();
+
+        store.update(FIRST);
+        store.update(SECOND);
+        store.update(THIRD);
+        store.update(FOURTH);
+        store.update(FIFTH);
+        store.update(SIXTH);
+
+        //when
+        List<TetrahedronIdentifiable> actual = repository.sort(TetrahedronComparator.VOLUME.getComparator());
 
         //then
         List<TetrahedronIdentifiable> expected = Arrays.asList(SIXTH, FIRST, FIFTH, FOURTH, SECOND, THIRD);

@@ -21,19 +21,6 @@ public class TetrahedronValidator {
         return vectorBasis != 0;
     }
 
-    public boolean isPossible(Tetrahedron tetrahedron) throws TetrahedronException {
-        if (tetrahedron == null) {
-            throw new TetrahedronException("Tetrahedron is null");
-        }
-
-        Point pointA = tetrahedron.getPointA();
-        Point pointB = tetrahedron.getPointB();
-        Point pointC = tetrahedron.getPointC();
-        Point pointD = tetrahedron.getPointD();
-
-        return isPossible(pointA, pointB, pointC, pointD);
-    }
-
     private double calculateVectorBasis(Point vectorA, Point vectorB, Point vectorC) throws TetrahedronException {
         if (vectorA == null || vectorB == null || vectorC == null) {
             throw new TetrahedronException("Point is null");

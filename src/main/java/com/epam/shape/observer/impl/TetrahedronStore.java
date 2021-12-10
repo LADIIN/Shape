@@ -1,6 +1,7 @@
 package com.epam.shape.observer.impl;
 
 import com.epam.shape.calculator.TetrahedronCalculator;
+import com.epam.shape.entity.TetrahedronParameters;
 import com.epam.shape.exception.TetrahedronException;
 import com.epam.shape.observer.Observer;
 import org.apache.log4j.Level;

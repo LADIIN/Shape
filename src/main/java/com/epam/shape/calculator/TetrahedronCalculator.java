@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class TetrahedronCalculator {
     private static final VectorCalculator vectorCalculator = new VectorCalculator();
-    private static final Logger LOGGER = LogManager.getLogger(DataReaderImpl.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TetrahedronCalculator.class.getName());
 
     public double calculateArea(Tetrahedron tetrahedron) throws TetrahedronException {
         if (tetrahedron == null) {

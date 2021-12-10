@@ -4,13 +4,14 @@ import com.epam.shape.exception.TetrahedronException;
 import com.epam.shape.observer.impl.TetrahedronIdentifiable;
 import com.epam.shape.repository.TetrahedronRepository;
 import com.epam.shape.repository.TetrahedronSpecification;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class TetrahedronRepositoryImpl implements TetrahedronRepository {
-    private static final Logger LOGGER = Logger.getLogger(TetrahedronRepositoryImpl.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(TetrahedronRepositoryImpl.class.getName());
 
     private Map<Integer, TetrahedronIdentifiable> store = new HashMap<>();
 
